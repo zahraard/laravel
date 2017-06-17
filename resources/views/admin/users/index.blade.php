@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('content')
    <div >
+       @if(Session::has('deleted_user'))
+
+           <p>{{session('deleted_user')}}</p>
+
+       @endif
      <h2>Users</h2>
 
      <table class="table table-hover">
@@ -14,6 +19,7 @@
              <th>Status</th>
              <th>Created</th>
              <th>Updated</th>
+
          </tr>
        </thead>
        <tbody>
@@ -21,8 +27,8 @@
        @foreach($users as $user)
          <tr  >
              <td>{{$user->id}}</td>
-             <td><img height="50" src="{{$user->photo ? $user->photo->file : 'No Photo'}}"></td>
-             <td>{{$user->name}}</td>
+             <td><img height="50" src="{{$user->photo ? $user->photo->file : 'http://placehold.it/400x400'}}" alt="" ></td>
+             <td><a href="{{route('admin.users.edit',$user->id)}}" >{{$user->name}}</a></td>
              <td>{{$user->email}}</td>
              <td>{{$user->role->name}}</td>
              <td>{{$user->status ? 'Active' : 'Not Active'}}</td>
